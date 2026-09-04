@@ -1,0 +1,567 @@
+/* 테스트호 시안 — 범어로제피부과
+ *
+ * 첫 판은 여백만 넓은 워드 문서였다. 정보를 담았을 뿐 디자인이 없었다.
+ * 이번 판에서 손댄 곳:
+ *
+ *   판  좌측 고정 목차 + 본문 2단. "제대로 된 정보 사이트"의 대표 신호다
+ *   글  Pretendard 를 얹고 크기 대비를 키웠다 (제목 52 / 리드 21 / 본문 17)
+ *   색  로고에서 뽑은 로즈(#e070a0)를 어둡게 눌러 액센트로만 쓴다.
+ *       분홍을 넓게 깔면 피부과가 아니라 미용실이 된다
+ *   면  섹션마다 01·02 번호. 표는 머리에만 색을 깔고 세로줄을 없앤다
+ *   발  어두운 면으로 닫는다. 흰 바탕이 끝없이 이어지면 문서로 보인다
+ */
+
+@font-face{font-family:Pretendard; font-weight:400;
+  src:url(font/Pretendard-Regular.otf) format('opentype'); font-display:swap}
+@font-face{font-family:Pretendard; font-weight:500;
+  src:url(font/Pretendard-Medium.otf) format('opentype'); font-display:swap}
+@font-face{font-family:Pretendard; font-weight:600;
+  src:url(font/Pretendard-SemiBold.otf) format('opentype'); font-display:swap}
+@font-face{font-family:Pretendard; font-weight:700;
+  src:url(font/Pretendard-Bold.otf) format('opentype'); font-display:swap}
+@font-face{font-family:Pretendard; font-weight:800;
+  src:url(font/Pretendard-ExtraBold.otf) format('opentype'); font-display:swap}
+
+:root{
+  --ink:#17131a;
+  --body:#4b4350;
+  --muted:#8b8190;
+  --line:#ebe5e9;
+  --line-2:#f5f1f3;
+  --rose:#a83560;         /* 로고색을 눌러 글자에 쓸 수 있게 */
+  --rose-lt:#e070a0;      /* 로고 원색. 선·점에만 */
+  --wash:#fcf6f9;
+  --paper:#fff;
+  --wrap:1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--body);
+  font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:17px; line-height:1.8; font-weight:400;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+img{max-width:100%; display:block}
+a{color:inherit}
+h1,h2,h3,h4{color:var(--ink); font-weight:700; letter-spacing:-.035em;
+  line-height:1.32; text-wrap:balance}
+
+/* ── 머리 ─────────────────────────────────────── */
+.top{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(160%) blur(12px); border-bottom:1px solid var(--line)}
+.top .in{max-width:var(--wrap); margin:0 auto; padding:0 32px;
+  display:flex; align-items:center; height:70px; gap:34px}
+.brand{display:flex; align-items:center; gap:9px; text-decoration:none}
+.brand img{height:30px; width:auto}
+.brand b{font-size:16.5px; font-weight:700; color:var(--ink); letter-spacing:-.03em}
+.nav{margin-left:auto; display:flex; gap:28px}
+.nav a{font-size:15px; font-weight:500; color:var(--body); text-decoration:none;
+  padding:4px 0; position:relative}
+.nav a.on{color:var(--ink); font-weight:600}
+.nav a.on::after{content:""; position:absolute; left:0; right:0; bottom:-1px;
+  height:2px; background:var(--rose)}
+.nav a:hover{color:var(--rose)}
+
+/* ── 첫 화면 ──────────────────────────────────── */
+.hero{border-bottom:1px solid var(--line); background:
+  linear-gradient(180deg,var(--wash) 0%,#fff 78%)}
+.hero .in{max-width:var(--wrap); margin:0 auto; padding:54px 32px 0}
+.eyebrow{display:flex; align-items:center; gap:10px; font-size:12.5px;
+  font-weight:700; letter-spacing:.14em; color:var(--rose); margin-bottom:20px}
+.eyebrow i{width:26px; height:2px; background:var(--rose-lt); display:block}
+.hero h1{font-size:53px; font-weight:800; margin:0 0 20px; max-width:15ch}
+.hero .lead{font-size:21px; line-height:1.68; color:var(--body); max-width:52ch;
+  margin:0 0 34px; font-weight:400}
+.hero .lead b{color:var(--ink); font-weight:600}
+
+.meta{display:flex; align-items:center; gap:14px; padding:0 0 32px;
+  flex-wrap:wrap}
+/* 감수 표기. 앞 판은 여기에 단체 광고 배너를 동그랗게 잘라 넣었다 —
+   얼굴은 나오는데 이름은 ○○○ 이라 앞뒤가 맞지 않았다. 글자만 쓴다. */
+.meta .badge{font-size:11px; font-weight:800; letter-spacing:.1em;
+  color:var(--rose); background:var(--wash); border:1px solid #f0dae4;
+  padding:5px 10px}
+.meta .who{font-size:15px; color:var(--ink); font-weight:600; line-height:1.4}
+.meta .who span{display:block; font-size:13px; color:var(--muted); font-weight:400}
+.meta .dot{width:3px; height:3px; border-radius:50%; background:#d5cdd2}
+.meta .when{font-size:13.5px; color:var(--muted)}
+
+/* 핵심 셋 — 데이터 저널리즘식 띠 */
+.facts{display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  border-top:1px solid var(--line)}
+/* 자식 선택자로 좁힌다. `.facts div` 로 두면 안쪽 .n·.t 까지 걸려
+   숫자 줄에 위아래 56px 이 더 붙는다 (실제로 그렇게 벌어져 있었다). */
+.facts > div{padding:26px 26px 30px; border-right:1px solid var(--line)}
+.facts > div:last-child{border-right:0}
+.facts > div:first-child{padding-left:0}
+.facts .n{font-size:34px; font-weight:800; color:var(--rose);
+  letter-spacing:-.04em; line-height:1.1; margin-bottom:6px}
+.facts .t{font-size:14.5px; color:var(--body); line-height:1.6}
+
+/* ── 판: 목차 + 본문 ───────────────────────────── */
+.page{max-width:var(--wrap); margin:0 auto; padding:0 32px 90px;
+  display:grid; grid-template-columns:196px 1fr; gap:56px; align-items:start}
+/* ⚠ 목차가 없는 판(허브·FAQ)은 반드시 한 칸으로 되돌린다. 그러지 않으면
+   본문이 목차 자리인 **196px 칸에 통째로 들어가** 한 줄에 대여섯 자씩 끊기고
+   표는 세로로 늘어진다. 실제로 허브 네 장이 전부 그렇게 나가 있었다. */
+.page.narrow{grid-template-columns:minmax(0,1fr)}
+.page.narrow article{max-width:820px}
+.toc{position:sticky; top:104px; padding-top:52px}
+.toc .h{font-size:11.5px; letter-spacing:.14em; font-weight:700; color:var(--muted);
+  margin-bottom:14px}
+.toc a{display:block; font-size:14px; line-height:1.5; color:var(--body);
+  text-decoration:none; padding:7px 0 7px 13px; border-left:2px solid var(--line)}
+.toc a:hover{color:var(--rose); border-left-color:var(--rose-lt)}
+.toc a.on{color:var(--ink); font-weight:600; border-left-color:var(--rose)}
+
+/* 한 줄 59자였다. 한글 본문은 40~45자에서 눈이 덜 튄다.
+   표는 좁히지 않고 글자만 좁힌다 — 수치는 넓게 봐야 읽힌다. */
+article{padding-top:52px; min-width:0; max-width:760px}
+article > section > p,.note{max-width:34em}
+
+/* 요약 — 인용하는 사람이 가져가는 자리 */
+.lede{border:1px solid var(--line); border-top:3px solid var(--rose);
+  padding:28px 30px 26px; margin:0 0 8px; background:#fff}
+.lede .h{font-size:11.5px; letter-spacing:.14em; font-weight:700;
+  color:var(--rose); margin-bottom:12px}
+.lede p{font-size:18.5px; line-height:1.72; color:var(--ink); margin:0 0 14px;
+  font-weight:500; letter-spacing:-.02em}
+.lede ul{margin:0; padding-left:0; list-style:none}
+.lede li{position:relative; padding-left:20px; margin:8px 0; font-size:16px;
+  line-height:1.68}
+.lede li::before{content:""; position:absolute; left:2px; top:11px; width:6px;
+  height:6px; background:var(--rose-lt); border-radius:50%}
+
+/* ⚠ 벌거벗은 `section` 으로 두면 홈의 <section class="band"> 까지 걸려
+   위 여백이 56px 더 얹힌다. 실제로 그렇게 벌어져 있었다. 글 안으로 좁힌다. */
+article section{padding-top:56px}
+h2{font-size:30px; font-weight:700; margin:0 0 16px}
+h3{font-size:19px; font-weight:600; margin:34px 0 8px}
+p{margin:0 0 20px}
+.note{font-size:14.5px; color:var(--muted); line-height:1.7}
+
+/* 뽑아 놓는 문장 */
+.pull{margin:34px 0; padding:0 0 0 26px; border-left:3px solid var(--rose-lt);
+  font-size:22px; line-height:1.62; color:var(--ink); font-weight:600;
+  letter-spacing:-.03em}
+
+/* 표 — 인용은 표에 붙는다 */
+figure{margin:30px 0 0; overflow-x:auto}
+figcaption{font-size:13px; color:var(--muted); margin-bottom:10px;
+  letter-spacing:.01em}
+figcaption b{color:var(--rose); font-weight:700; margin-right:5px}
+table{width:100%; border-collapse:collapse; font-size:15.5px}
+thead th{background:var(--wash); color:var(--ink); font-weight:700; font-size:13.5px;
+  letter-spacing:.02em; padding:13px 16px; text-align:left; white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+tbody td{padding:15px 16px; border-bottom:1px solid var(--line-2);
+  vertical-align:top; line-height:1.66}
+tbody td:first-child{color:var(--ink); font-weight:600; white-space:nowrap}
+tbody tr:hover td{background:#fdfbfc}
+sup{font-size:11px; color:var(--rose); font-weight:700; vertical-align:super}
+
+/* 출처 */
+.src{margin-top:56px; padding-top:24px; border-top:1px solid var(--line)}
+.src .h{font-size:11.5px; letter-spacing:.14em; font-weight:700; color:var(--muted);
+  margin-bottom:14px}
+.src ol{margin:0; padding-left:18px; font-size:14.5px; color:var(--muted)}
+.src li{margin:7px 0; line-height:1.65}
+
+/* ── 하위 글 ──────────────────────────────────── */
+.more{border-top:1px solid var(--line); background:var(--wash); margin-top:0}
+.more .in{max-width:var(--wrap); margin:0 auto; padding:66px 32px 76px}
+.more h2{font-size:28px; margin:0 0 6px}
+.more .q{font-size:15.5px; color:var(--muted); margin:0 0 34px}
+.cards{display:grid; grid-template-columns:repeat(3,1fr); gap:34px 26px}
+.card{text-decoration:none; display:block}
+.card .ph{position:relative; aspect-ratio:4/3; overflow:hidden; background:#efe9ec}
+.card .ph img{width:100%; height:100%; object-fit:cover;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.card:hover .ph img{transform:scale(1.05)}
+.card .ph b{position:absolute; left:0; top:0; background:var(--ink); color:#fff;
+  font-size:11.5px; font-weight:700; letter-spacing:.08em; padding:6px 11px}
+.card h3{font-size:17.5px; line-height:1.5; margin:16px 0 7px; font-weight:600;
+  letter-spacing:-.03em}
+.card:hover h3{color:var(--rose)}
+.card p{font-size:14.5px; color:var(--muted); line-height:1.65; margin:0}
+
+/* 검색 결과 미리보기 */
+.serp{max-width:var(--wrap); margin:0 auto; padding:66px 32px 20px}
+.serp .cap{font-size:11.5px; letter-spacing:.14em; font-weight:700;
+  color:var(--muted); margin-bottom:16px}
+.serp .box{border:1px solid var(--line); padding:26px 28px 30px; background:#fff;
+  max-width:730px}
+.serp .u{font-size:13px; color:#6b7280; margin-bottom:3px}
+.serp .t{font-size:19px; color:#1a5fb4; margin-bottom:6px; letter-spacing:-.02em}
+.serp .d{font-size:14.5px; color:#4b5563; margin-bottom:18px; line-height:1.6}
+.serp .row{display:flex; gap:11px; overflow-x:auto; padding-bottom:8px}
+.serp .it{flex:none; width:122px}
+.serp .it img{width:122px; height:122px; object-fit:cover; border:1px solid var(--line)}
+.serp .it span{display:block; font-size:12px; line-height:1.42; margin-top:7px;
+  color:#1a5fb4; display:-webkit-box; -webkit-line-clamp:2;
+  -webkit-box-orient:vertical; overflow:hidden}
+
+/* ── 발 ───────────────────────────────────────── */
+footer{background:var(--ink); color:#b3a9b8; margin-top:60px}
+footer .in{max-width:var(--wrap); margin:0 auto; padding:56px 32px 64px}
+footer .nm{color:#fff; font-size:17px; font-weight:600; letter-spacing:-.03em;
+  margin-bottom:8px}
+footer .ad{font-size:14.5px; margin-bottom:26px}
+footer .r{font-size:12.5px; line-height:1.8; color:#7d7383;
+  border-top:1px solid #2b242f; padding-top:22px; max-width:70ch}
+
+@media(max-width:1000px){
+  .page{grid-template-columns:1fr; gap:0}
+  .toc{display:none}
+  .hero h1{font-size:40px}
+  .cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  body{font-size:16px}
+  .top .in,.hero .in,.page,.more .in,.serp,footer .in{padding-left:20px; padding-right:20px}
+  .nav{display:none}
+  .hero .in{padding-top:38px}
+  .hero h1{font-size:31px}
+  .hero .lead{font-size:17.5px}
+  /* 여기도 `>` 를 빠뜨리면 숫자와 설명 사이에 줄이 그어진다 */
+  .facts{grid-template-columns:1fr}
+  .facts > div{border-right:0; border-bottom:1px solid var(--line); padding:18px 0}
+  .facts > div:last-child{border-bottom:0}
+  .facts .n{font-size:26px}
+  h2{font-size:24px}
+  .pull{font-size:19px; padding-left:18px}
+  .cards{grid-template-columns:1fr; gap:28px}
+  figure{overflow-x:auto}
+  table{min-width:520px}
+}
+
+/* ══════════════════════════════════════════════════════════
+   홈 — 병원이 운영하는 정보 사이트로 보이게
+
+   마케팅 랜딩과 갈리는 지점을 셋으로 잡았다.
+     · 첫 화면에서 외치지 않는다. 이 사이트가 무엇인지만 밝힌다
+     · 진료시간·전화는 크게 띄우지 않고 맨 윗줄 유틸리티로 보낸다
+     · '최근 글' 이 아니라 '최근 갱신' — 언제 고쳤는지가 신뢰의 근거다
+   ══════════════════════════════════════════════════════════ */
+
+.util{background:var(--ink); color:#a99fae; font-size:12.5px}
+.util .in{max-width:var(--wrap); margin:0 auto; padding:0 32px; height:36px;
+  display:flex; align-items:center; gap:20px}
+.util a{color:#cfc6d3; text-decoration:none}
+.util a:hover{color:#fff}
+.util .tel{margin-left:auto; color:#fff; font-weight:600; letter-spacing:.01em}
+
+/* 첫 화면 — 사진을 오른쪽 화면 끝까지 흘린다.
+   앞 판은 사진을 상자에 가둬 브로슈어처럼 보였다. 글이 놓이는 왼쪽만
+   `--wrap` 안에 맞추고 사진은 뷰포트 오른쪽 끝까지 나가게 둔다. */
+.lead-in{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:stretch; border-bottom:1px solid var(--line);
+  background:linear-gradient(120deg,var(--wash) 0%,#fff 62%)}
+/* ⚠ 글의 왼쪽 선을 아래 구획들과 맞춘다. 아래는 전부
+   `max-width:--wrap; margin:0 auto; padding:0 32px` 라 1440px 화면에서 155px 에서 시작한다.
+   앞 판은 `padding-left:max(32px, (100vw - --wrap)/2)` 였는데
+   ① 32px 을 더하지 않았고 ② **100vw 는 세로 스크롤바를 포함해** 실제 본문 폭보다 넓다.
+   둘이 겹쳐 25px 왼쪽으로 밀려 있었다. 칸 안에서 오른쪽으로 붙이고 폭을 절반으로 잡는다. */
+/* 격자 칸(grid area) 안에서 padding 의 % 는 **그 칸의 폭** 기준이다
+   (부모 전체가 아니다 — 50% 로 뒀다가 값이 음수가 돼 32px 로 주저앉았다).
+   칸 폭에서 --wrap 의 절반을 빼면 바깥 여백이고, +32px 이 구획들의 좌우 padding 이다.
+   스크롤바를 세는 100vw 는 쓰지 않는다 — 그것 때문에 25px 이 밀려 있었다. */
+.lead-in .tx{padding:78px 56px 78px max(32px,calc(100% - var(--wrap)/2 + 32px));
+  align-self:center}
+.lead-in .tx > .in{width:100%}
+.lead-in h1{font-size:44px; font-weight:800; line-height:1.28; margin:0 0 22px;
+  letter-spacing:-.04em}
+.lead-in .big{font-size:19px; line-height:1.72; color:var(--ink); margin:0 0 16px;
+  max-width:34ch; font-weight:500}
+.lead-in .sub{font-size:15.5px; line-height:1.75; color:var(--muted); margin:0 0 32px;
+  max-width:38ch}
+.lead-in .pic{position:relative; min-height:440px; overflow:hidden; background:#efe9ec}
+/* 사진 폭이 화면 절반뿐이라 가운데를 그대로 쓰면 인물이 반씩 잘린다.
+   오른쪽으로 밀어 상담하는 쪽이 중심에 오게 한다. */
+.lead-in .pic img{position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:62% center}
+.cta{display:flex; gap:12px; flex-wrap:wrap}
+.go,.go2{display:inline-block; text-decoration:none; font-size:14.5px;
+  font-weight:600; padding:13px 24px; letter-spacing:-.01em}
+.go{background:var(--ink); color:#fff}
+.go:hover{background:var(--rose)}
+.go2{border:1px solid var(--line); color:var(--ink); background:#fff}
+.go2:hover{border-color:var(--rose); color:var(--rose)}
+
+/* 숫자 띠 */
+.strip{border-bottom:1px solid var(--line); background:#fff}
+.strip .in{max-width:var(--wrap); margin:0 auto; padding:0 32px}
+.strip .facts{border-top:0}
+.strip .facts > div{padding:30px 30px 32px}
+
+/* 구획 공통 */
+.band{border-bottom:1px solid var(--line)}
+.band.alt{background:var(--wash)}
+.band .in,.wrap{max-width:var(--wrap); margin:0 auto; padding:64px 32px}
+.wrap{border-bottom:1px solid var(--line)}
+.head{margin-bottom:30px}
+.head h2{font-size:26px; margin:0 0 6px}
+.head p{font-size:15.5px; color:var(--muted); margin:0}
+
+.head.sm{margin:44px 0 16px; display:flex; align-items:baseline; gap:16px}
+.head.sm:first-child{margin-top:0}
+.head.sm h2{font-size:19px; margin:0}
+.head.sm h2 span{font-size:13px; color:var(--muted); font-weight:500; margin-left:6px}
+.head.sm p{margin:0 0 0 auto; font-size:13.5px}
+.head.sm a{color:var(--rose); text-decoration:none; font-weight:600}
+
+/* 시술 안내 — 주제 입구 */
+.topics{display:grid; grid-template-columns:repeat(3,1fr); gap:26px}
+
+/* 첫 장을 크게. 균등한 격자는 정보량이 같아 보여서 어디부터 볼지
+   알려 주지 못한다. 네 주제 중 검색량이 가장 큰 것이 맨 앞에 온다.
+   ⚠ 주제가 넷이라 왼쪽 하나 + 오른쪽 셋으로 나눈다. 3열에 span 2 를 주면
+     넷째가 혼자 다음 줄로 떨어져 빈 칸이 생긴다 (실제로 그렇게 나왔다). */
+.topics.feat{grid-template-columns:1.55fr 1fr; gap:22px; align-items:stretch}
+.topics.feat > .topic:first-child{grid-row:span 3;
+  display:grid; grid-template-rows:1fr auto}
+.topics.feat > .topic:first-child .ph{aspect-ratio:auto; height:100%; min-height:300px}
+/* 세로로 길게 늘어나므로 사람이 있는 아래쪽을 남긴다. 가운데를 쓰면
+   장비만 크게 나오고 정작 진료 장면이 잘린다 */
+.topics.feat > .topic:first-child .ph img{object-position:center 62%}
+.topics.feat > .topic:first-child h3{font-size:27px}
+.topics.feat > .topic:first-child .tx{padding:26px 30px 30px}
+.topics.feat > .topic:first-child p{font-size:15.5px}
+/* 오른쪽 셋은 사진을 옆에 붙여 납작하게. 세로로 세 장 쌓으면 길어진다.
+   폭이 좁아 세로로 길게 잘리므로 위쪽(얼굴·손이 있는 자리)을 남긴다 */
+.topics.feat > .topic:not(:first-child){display:grid;
+  grid-template-columns:178px 1fr; align-items:stretch}
+.topics.feat > .topic:not(:first-child) .ph{aspect-ratio:auto; height:100%}
+.topics.feat > .topic:not(:first-child) .ph img{object-position:center 38%}
+.topics.feat > .topic:not(:first-child) .tx{padding:18px 20px}
+.topics.feat > .topic:not(:first-child) h3{font-size:18px}
+.topics.feat > .topic:not(:first-child) p{font-size:13.5px; margin-bottom:8px}
+.topic{text-decoration:none; display:block; background:#fff;
+  border:1px solid var(--line); transition:border-color .2s}
+.topic:hover{border-color:var(--rose)}
+.topic .ph{aspect-ratio:16/10; overflow:hidden; background:#efe9ec}
+.topic .ph img{width:100%; height:100%; object-fit:cover}
+.topic .tx{padding:20px 22px 22px}
+.topic h3{font-size:20px; margin:0 0 8px; font-weight:700}
+.topic:hover h3{color:var(--rose)}
+.topic p{font-size:14.5px; color:var(--body); line-height:1.65; margin:0 0 12px}
+.topic .meta{font-size:12.5px; color:var(--muted)}
+
+/* 최근 갱신 — 카드가 아니라 목록. 정보 사이트는 목록이 맞다 */
+.list{list-style:none; margin:0; padding:0; border-top:1px solid var(--line)}
+.list li{border-bottom:1px solid var(--line-2)}
+/* ⚠ 좌우 padding 을 두면 목록만 4px 안쪽으로 들어가 위 제목과 선이 어긋난다 */
+.list a{display:grid; grid-template-columns:96px 1fr auto; gap:18px;
+  align-items:baseline; padding:16px 0; text-decoration:none}
+.list a:hover .t{color:var(--rose)}
+.list .tag{font-size:12px; font-weight:700; color:var(--rose); letter-spacing:.02em}
+.list .t{font-size:16.5px; color:var(--ink); font-weight:500; letter-spacing:-.02em}
+.list .by{font-size:13px; color:var(--muted)}
+.list .d{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums;
+  min-width:44px; text-align:right}
+.more-link{display:inline-block; margin-top:22px; font-size:14.5px;
+  color:var(--rose); text-decoration:none; font-weight:600}
+.more-link:hover{text-decoration:underline}
+
+/* 의료진 */
+.docs{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+.doc{background:#fff; border:1px solid var(--line); padding:24px 24px 26px}
+.doc b{display:block; font-size:18px; color:var(--ink); font-weight:700;
+  letter-spacing:-.03em; margin-bottom:10px}
+.doc span{display:inline-block; font-size:11.5px; color:var(--rose); font-weight:700;
+  letter-spacing:.06em; margin-bottom:14px; padding:4px 9px;
+  background:var(--wash); border:1px solid #f0dae4}
+.doc p{font-size:14.5px; color:var(--body); line-height:1.68; margin:0}
+.doc .cnt{margin-top:14px; padding-top:12px; border-top:1px solid var(--line-2);
+  font-size:12.5px; color:var(--muted)}
+
+/* 「이 사이트의 글은 이렇게 만듭니다」 — 앞 판에서 광고 배너가 있던 자리 */
+.how{display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  border-top:1px solid var(--line)}
+.how .st{padding:30px 30px 32px; border-right:1px solid var(--line)}
+.how .st:last-child{border-right:0}
+.how .st:first-child{padding-left:0}
+.how b{display:block; font-size:12px; font-weight:800; color:var(--rose-lt);
+  letter-spacing:.1em; margin-bottom:14px; font-variant-numeric:tabular-nums}
+.how h3{font-size:17.5px; margin:0 0 10px; font-weight:700; line-height:1.45}
+.how p{font-size:14.5px; color:var(--body); line-height:1.72; margin:0}
+.note-line{margin-top:30px; padding:16px 20px; background:#fff;
+  border:1px solid var(--line); font-size:14px; color:var(--muted)}
+.note-line b{color:var(--ink); font-weight:600}
+
+/* 사진 묶음 (병원 소개) */
+.gal{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.gal img{width:100%; aspect-ratio:3/2; object-fit:cover; background:#efe9ec}
+.pic-wide img{width:100%; aspect-ratio:21/9; object-fit:cover; background:#efe9ec}
+
+/* 병원 안내 */
+/* minmax(0,1fr) 로 둔다. 그냥 1fr 이면 칸의 min-width 가 auto 라
+   안의 표가 넓어질 때 **칸이 따라 늘어나** 화면 밖으로 나간다. */
+.info{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:36px}
+/* 표가 곧 격자 칸의 자식이다. 칸을 minmax(0,1fr) 로 좁혀도 **표 자신의
+   min-width 가 auto** 라 내용 최소폭까지 늘어난다(375px 화면에서 520px 이 됐다).
+   min-width:0 을 줘야 칸 안에 갇힌다. */
+.info table{table-layout:fixed; min-width:0; width:100%}
+.info caption{text-align:left; font-size:13px; font-weight:700; color:var(--ink);
+  letter-spacing:.02em; padding-bottom:10px}
+.info table{border-top:1px solid var(--ink)}
+.info td{padding:13px 4px; border-bottom:1px solid var(--line-2); font-size:15px}
+.info td:first-child{color:var(--muted); font-weight:500; width:38%; white-space:nowrap}
+
+@media(max-width:1000px){
+  .lead-in{grid-template-columns:1fr}
+  .lead-in .tx{padding:48px 24px 44px; order:2}
+  .lead-in .pic{min-height:0; aspect-ratio:16/9; order:1}
+  .lead-in h1{font-size:34px}
+  .topics,.docs,.how,.gal{grid-template-columns:1fr 1fr}
+  .topics.feat{grid-template-columns:1fr 1fr}
+  .topics.feat > .topic:first-child{grid-column:span 2; grid-row:auto}
+  .topics.feat > .topic:first-child .ph{aspect-ratio:16/9; min-height:0}
+  .how .st{border-right:0; border-bottom:1px solid var(--line); padding-left:0}
+}
+@media(max-width:640px){
+  .util .in{padding:0 20px; gap:14px; font-size:11.5px}
+  .util .in span{display:none}
+  .band .in,.wrap,.strip .in{padding-left:20px; padding-right:20px}
+  .band .in,.wrap{padding-top:44px; padding-bottom:44px}
+  .lead-in .tx{padding:34px 20px 38px}
+  .lead-in h1{font-size:27px}
+  .lead-in .big{font-size:17px}
+  .topics,.docs,.info,.how,.gal{grid-template-columns:minmax(0,1fr); gap:18px}
+  .topics.feat,.topics.feat > .topic:first-child{grid-template-columns:1fr;
+    grid-column:auto}
+  .topics.feat > .topic:first-child h3{font-size:21px}
+  .how{gap:0}
+  .how .st{padding:22px 0 24px}
+  .gal{gap:10px}
+  /* ⚠ 「병원 안내」 표의 첫 칸이 nowrap 이라 주소가 길면 표가 화면 밖으로 나간다.
+     375px 에서 문서 폭이 540px 이 되어 **페이지 전체에 가로 스크롤**이 생겼다. */
+  .info td:first-child{width:32%; white-space:normal}
+  .info td{word-break:keep-all}
+  .list a{grid-template-columns:1fr auto; gap:4px 12px; padding:14px 0}
+  .list .tag{grid-row:1; font-size:11.5px}
+  .list .t{grid-column:1/-1; grid-row:2; font-size:16px}
+  .list .d{grid-column:2; grid-row:1}
+}
+
+/* ── 접근성 ───────────────────────────────────────
+   키보드로 다니는 사람에게 지금 어디인지 보여야 한다. 병원 사이트는
+   눈이 불편한 분이 오는 곳이라 더 그렇다. */
+:where(a,button,[tabindex]):focus-visible{
+  outline:2px solid var(--rose); outline-offset:3px; border-radius:2px}
+
+/* 움직임을 줄여 달라고 설정한 사람에게는 줄인다 */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important; scroll-behavior:auto !important}
+  .card:hover .ph img{transform:none}
+}
+
+.intro .sub{font-size:15.5px; color:var(--muted); max-width:46ch}
+
+/* ── 페이지 머리 (홈이 아닌 페이지들) ──────────────── */
+.page-head{border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--wash) 0%,#fff 100%)}
+.page-head .in{max-width:var(--wrap); margin:0 auto; padding:34px 32px 44px}
+.page-head h1{font-size:34px; font-weight:800; margin:14px 0 12px}
+.page-head p{font-size:17px; color:var(--body); margin:0; max-width:52ch}
+.page-head .crumb{padding:0}
+
+/* 확인 전 초안임을 숨기지 않는다. 시안을 그대로 보여줘도 사고가 없게. */
+/* 페이지 맨 위에 놓일 때는 좌우 padding 을 구획들과 같은 32px 로 둔다.
+   20px 이면 글자가 다른 줄보다 12px 왼쪽으로 나온다. */
+.draft{max-width:var(--wrap); margin:0 auto; padding:14px 32px;
+  background:#fff6e8; border:1px solid #f0d9b5; color:#7a5520;
+  font-size:14.5px; line-height:1.6}
+.draft b{color:#5c3d10}
+.wrap > .draft,.band .draft{margin-bottom:26px; padding:14px 18px}
+
+.pic-wide{border:1px solid var(--line); overflow:hidden; margin-top:26px}
+.pic-wide img{width:100%; height:auto}
+
+/* 주제 페이지 빵부스러기는 히어로 안에 들어간다 */
+.hero .crumb{padding:0 0 6px}
+
+/* ── 한글 줄바꿈 ───────────────────────────────────
+   기본값은 어절 한가운데를 자른다 — "카트리지 깊이는 부 / 위마다" 처럼.
+   한글은 어절 단위로 끊어야 읽힌다. */
+h1,h2,h3,h4,.lead,.t,.blurb,p,li,td,th{word-break:keep-all; overflow-wrap:break-word}
+.hero h1{max-width:20ch}
+
+/* ── 빵부스러기 ───────────────────────────────────
+   생성기로 옮기며 스타일이 빠져 밑줄 친 채 붙어 나왔다. */
+.crumb{font-size:13.5px; color:var(--muted); padding:22px 0 0}
+.crumb a{color:var(--muted); text-decoration:none}
+.crumb a:hover{color:var(--rose)}
+.crumb span{margin:0 7px; color:#c9c0cb}
+
+/* ── 긴 글 ─────────────────────────────────────────
+   핵심 포인트와 불릿이 늘었다. 목록이 본문의 절반을 차지하므로
+   문단만큼 공들여 짠다. (레퍼런스는 한 글에 목록이 64개였다) */
+.lede ul li b{color:var(--rose); font-weight:700; margin-right:2px}
+.lede li{font-size:15.5px; line-height:1.66}
+
+ul.pts{margin:18px 0 22px; padding:0; list-style:none; max-width:34em}
+ul.pts li{position:relative; padding-left:19px; margin:9px 0;
+  font-size:16px; line-height:1.7}
+ul.pts li::before{content:""; position:absolute; left:2px; top:11px;
+  width:5px; height:5px; border-radius:50%; background:var(--rose-lt)}
+
+.tags{margin-top:34px; padding-top:20px; border-top:1px solid var(--line-2);
+  display:flex; flex-wrap:wrap; gap:8px}
+.tags span{font-size:13px; color:var(--muted); background:var(--wash);
+  padding:5px 11px; border:1px solid var(--line)}
+
+/* 히어로 아래 진료 목록. 실제 병원 홈이 여기에 두는 것은 편집 방침이 아니라
+   **다루는 진료**다 (하이린 「#피부 #스킨부스터 …」, 지우다는 메뉴 그대로). */
+.lead-in .menu{font-size:14.5px; color:var(--muted); margin:0 0 30px;
+  letter-spacing:.01em; max-width:36ch; line-height:1.8}
+
+/* ── 의료진 사진 ─────────────────────────────────── */
+.doc .ph{aspect-ratio:4/5; overflow:hidden; background:var(--wash);
+  margin:-24px -24px 18px; display:flex; align-items:center; justify-content:center}
+.doc .ph img{width:100%; height:100%; object-fit:cover; object-position:center 18%}
+/* 사진이 없는 분 — 빈 액자 대신 이름 첫 글자 */
+.doc .ph .ini{font-size:44px; font-weight:800; color:#e2d3da; letter-spacing:-.04em}
+
+/* 오시는 길 — 길찾기·예약은 네이버로 넘긴다 */
+.cta.wide{margin-top:26px}
+.cta.wide a{padding:15px 26px}
+
+/* 발문의 바깥 채널 */
+footer .ch{margin:18px 0 0; display:flex; flex-wrap:wrap; gap:6px 18px}
+footer .ch a{font-size:13px; color:#cfc6d3; text-decoration:none}
+footer .ch a:hover{color:#fff; text-decoration:underline}
+
+/* 병원 소개 본문 */
+.wrap.narrow-txt{padding-bottom:0; border-bottom:0}
+.wrap.narrow-txt .big{font-size:18px; line-height:1.85; color:var(--ink);
+  max-width:44em; margin:0 0 22px; font-weight:400}
+
+/* 상단 띠의 예약·상담 — 글자만으로는 안 보여서 예약만 칠한다 */
+.util .bk{color:#fff; background:var(--rose); padding:3px 9px; font-weight:600}
+.util .bk:hover{background:var(--rose-lt); color:#fff}
+/* 카카오톡 — 브랜드색을 쓰되 테두리만. 버튼 셋이 다 칠해지면 어디를 눌러야 할지 모른다 */
+.go2.kko{border-color:#f4dd4b; color:#3c1e1e; background:#fee500}
+.go2.kko:hover{background:#f6dc00; border-color:#f6dc00; color:#3c1e1e}
+
+/* 의료진 카드의 약력 링크 */
+.doc .lk{display:inline-block; margin-top:12px; font-size:13.5px; color:var(--rose);
+  text-decoration:none; font-weight:600}
+.doc .lk:hover{text-decoration:underline}
+.note-line a{color:var(--rose); text-decoration:none; font-weight:600}
+.note-line a:hover{text-decoration:underline}
+.note-line + .note-line{margin-top:10px}
+
+/* 상단 띠 맨 앞의 병원명 — 「대구피부과」를 모든 페이지 첫 줄에 세운다 */
+.util .nm{color:#fff; font-weight:600; letter-spacing:-.01em}
+.util .nm::after{content:"·"; margin:0 0 0 12px; color:#6b5f72}
+@media(max-width:900px){ .util .nm{display:none} }
+
+/* 「진료의 기본」 — 정품·정량·정직. .how 를 쓰되 번호 대신 낱말을 세운다 */
+.how.basics b{font-size:22px; font-weight:800; color:var(--rose);
+  letter-spacing:-.03em; margin-bottom:12px}
+.how.basics .st{padding-top:26px}
